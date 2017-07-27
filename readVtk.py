@@ -18,7 +18,10 @@ num_cells = output.GetNumberOfCells()
 
 # print output.GetPoint(2)[2]
 # print output.GetPoint(3)
-# print output.GetCell(0)
+
+# print output.GetCell(0).GetNumberOfPoints()
+# print output.GetCell(0).GetPointIds().GetId(0)
+# print output.GetCell(0).GetPointIds().GetId(1)
 
 celldata = output.GetCellData().GetArray('str_radiusAdjusted')
 
@@ -28,6 +31,8 @@ radius = np.zeros(celldata.GetSize())
 xval = np.zeros(num_points)
 yval = np.zeros(num_points)
 zval = np.zeros(num_points)
+idsStart = np.zeros(num_cells)
+idsEnd = np.zeros(num_cells)
 
 # Fill X,Y,Z Values into Numpy Array
 for i in range(0, num_points):
@@ -35,6 +40,11 @@ for i in range(0, num_points):
     xval[i] = data[0]
     yval[i] = data[1]
     zval[i] = data[2]
+
+for i in range(0, num_cells):
+    data = output.GetCell(i).GetPointIds()
+    idsStart[i] = data.GetId(0)
+    idsEnd[i] = data.GetId(1)
 
 # Fill Diameters into Numpy Array
 for i in range(0, num_cells):
