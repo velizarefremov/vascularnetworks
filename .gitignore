@@ -101,4 +101,7 @@ ENV/
 .mypy_cache/
 
 .idea/
-av_cropped.vtk
+/01.vtk
+/av_cropped.vtk
+/itkutilities.py
+/deneme.nii.gz
