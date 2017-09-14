@@ -3,6 +3,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 import itkutilities
 
+xwidth = 580
+ywidth = 640
+zwidth = 136
+
+xscale = 0.3125
+yscale = 0.3125
+zscale = 0.6
 
 file_name = "01.vtk"
 
@@ -32,21 +39,35 @@ print celldata.GetSize()
 radius = np.zeros(celldata.GetSize())
 
 # Create image to write.
-a = np.zeros(shape=(500, 300, 300), dtype='uint8')
+a = np.zeros(shape=(zwidth, ywidth, xwidth), dtype='uint8')
+
+# Start and end IDs of edges
+counts = np.zeros(num_points)
+
+for i in range(0, num_cells):
+    data = output.GetCell(i).GetPointIds()
+    counts[data.GetId(0)] += 1
+    counts[data.GetId(1)] += 1
 
 # Indices start with 0.
-# TODO: Apply boundary check
-for i in range(num_points):
-    pt = output.GetPoint(i)
-    x = pt[0]
-    y = pt[1]
-    z = pt[2]
-    for j in range(-2, 3):
-        for k in range(-2, 3):
-            for l in range(-2, 3):
-                a[x + j, y + k, z + l] = 1
-
-
+for i in range(0, num_points):
+    # If bifurcation
+    if counts[i] > 2:
+        # print "index: ", i, " with ", counts[i], " connections"
+        pt = output.GetPoint(i)
+        x = pt[0]/xscale
+        y = pt[1]/yscale
+        z = pt[2]/zscale
+        for j in range(-2, 3):
+            for k in range(-2, 3):
+                for l in range(-2, 3):
+                    xinc = x + j
+                    yinc = y + k
+                    zinc = z + l
+                    if xinc < 0 or yinc < 0 or zinc < 0 or xinc >= xwidth or yinc >= ywidth or zinc >= zwidth:
+                        continue
+                    else:
+                        a[zinc, yinc, xinc] = 1
 
 
 # Write the image.
