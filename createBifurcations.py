@@ -2,6 +2,7 @@ from vtk import *
 import numpy as np
 from matplotlib import pyplot as plt
 import itkutilities
+import sys
 
 xwidth = 580
 ywidth = 640
@@ -11,10 +12,11 @@ xscale = 0.3125
 yscale = 0.3125
 zscale = 0.6
 
-file_name = "01.vtk"
+input_file_name = sys.argv[1]
+output_file_name = sys.argv[2]
 
 reader = vtkPolyDataReader()
-reader.SetFileName(file_name)
+reader.SetFileName(input_file_name)
 reader.ReadAllScalarsOn()
 reader.Update()
 output = reader.GetOutput()
@@ -71,4 +73,4 @@ for i in range(0, num_points):
 
 
 # Write the image.
-itkutilities.write_itk_imageArray(a, 'deneme.nii.gz')
+itkutilities.write_itk_imageArray(a, output_file_name)
