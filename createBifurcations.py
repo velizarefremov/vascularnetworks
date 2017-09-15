@@ -24,19 +24,19 @@ output = reader.GetOutput()
 num_points = output.GetNumberOfPoints()
 num_cells = output.GetNumberOfCells()
 
-print num_points
-print num_cells
+# print num_points
+# print num_cells
 
-print output.GetPoint(2)[1]
-print output.GetPoint(3)
+# print output.GetPoint(2)[1]
+# print output.GetPoint(3)
 
-print output.GetCell(0).GetNumberOfPoints()
-print output.GetCell(0).GetPointIds().GetId(0)
-print output.GetCell(0).GetPointIds().GetId(1)
+# print output.GetCell(0).GetNumberOfPoints()
+# print output.GetCell(0).GetPointIds().GetId(0)
+# print output.GetCell(0).GetPointIds().GetId(1)
 
 celldata = output.GetCellData().GetArray('radius')
 
-print celldata.GetSize()
+# print celldata.GetSize()
 
 radius = np.zeros(celldata.GetSize())
 
@@ -57,9 +57,10 @@ for i in range(0, num_points):
     if counts[i] > 2:
         # print "index: ", i, " with ", counts[i], " connections"
         pt = output.GetPoint(i)
-        x = pt[0]/xscale
-        y = pt[1]/yscale
-        z = pt[2]/zscale
+        x = int(pt[0]/xscale)
+        y = int(pt[1]/yscale)
+        z = int(pt[2]/zscale)
+        # print x, y, z
         for j in range(-2, 3):
             for k in range(-2, 3):
                 for l in range(-2, 3):
