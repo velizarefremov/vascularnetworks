@@ -7,7 +7,7 @@ if __name__ == '__main__':
     # Read file
     inputimg = np.array(get_itk_array(sys.argv[1]))
 
-    inputimg = (inputimg/256).astype('uint8')
+    inputimg = (inputimg/255).astype('uint8')
 
     # Write to File
     write_itk_imageArray(inputimg, sys.argv[2])
