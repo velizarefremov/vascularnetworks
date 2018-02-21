@@ -1,4 +1,4 @@
-from itk_utilities import get_itk_array, write_itk_imageArray
+from itkutilities import get_itk_array, write_itk_imageArray
 import numpy as np
 import sys
 
