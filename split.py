@@ -5,18 +5,17 @@ from itkutilities import get_itk_array, write_itk_imageArray
 import utility
 
 
-if len(sys.argv) != 3:
-    print("Usage: " + sys.argv[0] + " <testData> <workFolder>")
+if len(sys.argv) != 4:
+    print("Usage: " + sys.argv[0] + " <testData> <workFolder> <stepsize>")
     sys.exit(1)
 
 datafilename = sys.argv[1]
 workfolder = sys.argv[2]
+stepsize = int(sys.argv[3])
 
 inputimg = get_itk_array(datafilename)
 
 # File will be split into (stepsize x stepsize x stepsize) chunks
-stepsize = 200
-
 startX = 0
 startY = 0
 startZ = 0
@@ -39,7 +38,7 @@ for i in utility.my_range(0, xSize, stepsize):
     for j in utility.my_range(0, ySize, stepsize):
 
         for k in utility.my_range(0, zSize, stepsize):
-            print "Step at: (", index, ")", startX, startY, startZ
+            print("Step at: (", index, ")", startX, startY, startZ)
             endX = startX + stepsize
             endY = startY + stepsize
             endZ = startZ + stepsize
@@ -61,4 +60,4 @@ for i in utility.my_range(0, xSize, stepsize):
 file.write(str(index) + "\n")
 file.close()
 
-print "Done."
+print("Done.")
