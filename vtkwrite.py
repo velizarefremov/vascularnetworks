@@ -39,6 +39,7 @@ radius.SetName("radius")
 print("started")
 
 data = dict()
+edges = dict()
 
 for i in utility.my_range(1, dims[0] - 1, 1):
     print("Step: ", i)
@@ -82,10 +83,18 @@ for i in utility.my_range(1, dims[0] - 1, 1):
                                     secondindex = data[ind]
 
                                 # Insert Line
-                                line.InsertNextCell(2)
-                                line.InsertCellPoint(mainind)
-                                line.InsertCellPoint(secondindex)
-                                radius.InsertNextValue(5)
+                                # Check first if it already exists.
+
+                                tocheck = str(mainind) + '-' + str(secondindex)
+                                tocheck2 = str(secondindex) + '-' + str(mainind)
+
+                                if tocheck not in edges and tocheck2 not in edges:
+                                    line.InsertNextCell(2)
+                                    line.InsertCellPoint(mainind)
+                                    line.InsertCellPoint(secondindex)
+                                    radius.InsertNextValue(5)
+                                    edges[tocheck] = 1
+                                    edges[tocheck2] = 1
 
 print("Passed through the file")
 

@@ -4,13 +4,13 @@ from matplotlib import pyplot as plt
 import itkutilities
 import sys
 
-xwidth = 580
-ywidth = 640
-zwidth = 136
+xwidth = 256
+ywidth = 256
+zwidth = 256
 
-xscale = 0.3125
-yscale = 0.3125
-zscale = 0.6
+xscale = 1
+yscale = 1
+zscale = 1
 
 input_file_name = sys.argv[1]
 output_file_name = sys.argv[2]
@@ -70,7 +70,7 @@ for i in range(0, num_points):
                     if xinc < 0 or yinc < 0 or zinc < 0 or xinc >= xwidth or yinc >= ywidth or zinc >= zwidth:
                         continue
                     else:
-                        a[zinc, yinc, xinc] = 1
+                        a[xinc, yinc, zinc] = 1
 
 
 # Write the image.
