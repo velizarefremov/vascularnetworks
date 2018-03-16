@@ -12,8 +12,8 @@ def call_f1scores(grdtruth,prediction,masks):
     armax = np.argmax(f1)
     max_thres = thres[armax]
     img1 = np.asarray(prediction > max_thres,dtype=int)
-    print 'threshold :',max_thres
-    print 'dice:',f1[armax]
+    print('threshold :',max_thres)
+    print('dice:',f1[armax])
     # print 'accuracy:',1-(np.sum(np.asarray(img1!=grdtruth,dtype=int)))
 
 

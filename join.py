@@ -38,7 +38,7 @@ for i in utility.my_range(0, xSize, stepsize):
     for j in utility.my_range(0, ySize, stepsize):
 
         for k in utility.my_range(0, zSize, stepsize):
-            print "Step at: (", index, ")", startX, startY, startZ
+            print("Step at: (", index, ")", startX, startY, startZ)
             endX = startX + stepsize
             endY = startY + stepsize
             endZ = startZ + stepsize
@@ -60,6 +60,6 @@ for i in utility.my_range(0, xSize, stepsize):
 
 
 # Write the file on to disk.
-print "Writing File to Disk..."
+print("Writing File to Disk...")
 write_itk_imageArray(joinedfile, outputfile)
-print "Done."
+print("Done.")

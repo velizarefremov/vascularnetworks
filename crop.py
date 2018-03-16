@@ -22,10 +22,10 @@ if __name__ == '__main__':
     endY = startY + sizeY
     endZ = startZ + sizeZ
 
-    print np.shape(inputimg)
+    print(np.shape(inputimg))
 
-    print startX, startY, startZ
-    print endX, endY, endZ
+    print(startX, startY, startZ)
+    print(endX, endY, endZ)
 
     cropped = inputimg[startX:endX, startY:endY, startZ:endZ]
 

@@ -16,7 +16,7 @@ if __name__ == '__main__':
     inputimg.clip(min, max, out=inputimg)
     inputimg -= min
     multiplier = 255.0/float(max-min+1)
-    print multiplier
+    print(multiplier)
     inputimg = np.multiply(inputimg, multiplier, out=inputimg, casting='unsafe')
 
     write_itk_imageArray(np.asarray(inputimg, dtype='uint8'), outputimg)

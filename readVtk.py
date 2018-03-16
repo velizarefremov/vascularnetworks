@@ -50,11 +50,11 @@ for i in range(0, num_cells):
 for i in range(0, num_cells):
     radius[i] = celldata.GetValue(i)
 
-print min(radius)
-print max(radius)
-print np.mean(radius)
-print np.std(radius)
+print(min(radius))
+print(max(radius))
+print(np.mean(radius))
+print(np.std(radius))
 
-print min(xval), max(xval)
-print min(yval), max(yval)
-print min(zval), max(zval)
+print(min(xval), max(xval))
+print(min(yval), max(yval))
+print(min(zval), max(zval))

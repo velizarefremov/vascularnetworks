@@ -27,15 +27,15 @@ ySize = content[2]
 zSize = content[3]
 numfiles = content[4]
 
-print "Total Image Size is: ", xSize, ySize, zSize
-print "Total Number of Files: ", numfiles
+print("Total Image Size is: ", xSize, ySize, zSize)
+print("Total Number of Files: ", numfiles)
 
 # Segment every file.
 index = 0
 
 for i in utility.my_range(0, int(numfiles), 1):
 
-    print "Making 8bit file: ", "cropped" + str(index) + ".nii.gz"
+    print("Making 8bit file: ", "cropped" + str(index) + ".nii.gz")
 
     datafilename = workfolder + "/cropped" + str(index) + ".nii.gz"
     writefilename = outfolder + "/cropped" + str(index) + ".nii.gz"
@@ -46,4 +46,4 @@ for i in utility.my_range(0, int(numfiles), 1):
     # Update indices
     index = index + 1
 
-print "Done."
+print("Done.")
