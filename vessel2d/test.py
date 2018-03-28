@@ -3,14 +3,15 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy as np
+import utility
 import tensorflow as tf
-from vessel.model import cnn_model_fn, load_test_data
+from vessel2d.model import cnn_model_fn, load_test_data
 from itkutilities import write_itk_imageArray
 
 
 def main(unused_args):
 
-    test_data = load_test_data('../input/raw8_2.nii.gz', )
+    test_data = load_test_data('../output/cropped47.nii.gz', )
     # print("Input Data...")
     # print("Shape: ", np.shape(test_data))
     # print("Max: ", np.max(test_data))
@@ -19,7 +20,7 @@ def main(unused_args):
 
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir="/home/joseph/Desktop/models/gilestest")
+        model_fn=cnn_model_fn, model_dir="/home/joseph/Desktop/models/giles2d")
 
     predict_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": test_data},
@@ -32,9 +33,13 @@ def main(unused_args):
 
     predictions = np.array(list(predictions))
 
-    print(predictions[0])
+    print(np.shape(predictions))
+    print(predictions[0]['classes'])
 
-    result = predictions[0]['classes']
+    result = np.zeros([64, 64, 64], dtype='uint8')
+
+    for i in utility.my_range(0, 64, 1):
+        result[i] = predictions[i]['classes']
 
     # print(result)
     # print(np.shape(result))
