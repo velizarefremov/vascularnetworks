@@ -161,3 +161,28 @@ def load_test_data(filename):
     print("Loaded test data.")
 
     return data
+
+
+def load_test_data_folder(folder_name):
+
+    # Read info file.
+    with open(folder_name + "info.txt") as f:
+        content = f.readlines()
+
+    content = [x.strip() for x in content]
+    num_files = int(content[4])
+
+    print("Total Number of Files: ", num_files)
+    print("Loading testing data...")
+
+    data = np.zeros([num_files, 64, 64, 64], dtype='float32')
+
+    for i in utility.my_range(0, num_files, 1):
+
+        data_file_name = folder_name + "cropped" + str(i) + ".nii.gz"
+
+        data[i] = np.asarray(get_itk_array(data_file_name), dtype='float32')
+
+    print("All data loaded.")
+
+    return data

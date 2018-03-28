@@ -5,18 +5,20 @@ from __future__ import print_function
 import numpy as np
 import utility
 import tensorflow as tf
-from vessel2d.model import cnn_model_fn, load_test_data
+from vessel2d.model import cnn_model_fn, load_test_data_folder
 from itkutilities import write_itk_imageArray
 
 
 def main(unused_args):
 
-    test_data = load_test_data('../output/cropped47.nii.gz', )
-    # print("Input Data...")
-    # print("Shape: ", np.shape(test_data))
-    # print("Max: ", np.max(test_data))
-    # print("Min: ", np.min(test_data))
-    # print("Mean: ", np.mean(test_data))
+    test_data = load_test_data_folder('../input/norm2/', )
+    test_data = np.reshape(test_data, [-1, 64, 64])
+
+    print("Input Data...")
+    print("Shape: ", np.shape(test_data))
+    print("Max: ", np.max(test_data))
+    print("Min: ", np.min(test_data))
+    print("Mean: ", np.mean(test_data))
 
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
@@ -35,16 +37,19 @@ def main(unused_args):
 
     print(np.shape(predictions))
     print(predictions[0]['classes'])
+    print(np.shape(predictions[0]['classes']))
 
-    result = np.zeros([64, 64, 64], dtype='uint8')
+    result = np.zeros([64, 64, 64, 64], dtype='uint8')
 
     for i in utility.my_range(0, 64, 1):
-        result[i] = predictions[i]['classes']
+        for j in utility.my_range(0, 64, 1):
+            result[i, j, :, :] = predictions[i * 64 + j]['classes']
 
     # print(result)
     # print(np.shape(result))
 
-    write_itk_imageArray(result, '../output/detected.nii.gz')
+    for i in utility.my_range(0, 64, 1):
+        write_itk_imageArray(result[i], '../input/myseg2/cropped' + str(i) + '.nii.gz')
 
     # print("Predictions...")
     # print("Shape: ", np.shape(predictions))
