@@ -4,13 +4,14 @@ from __future__ import print_function
 
 import numpy as np
 import tensorflow as tf
-from vessel.model import cnn_model_fn, load_test_data
+from vessel.model import cnn_model_fn, load_train_data_folder
 from itkutilities import write_itk_imageArray
 
 
 def main(unused_args):
 
-    test_data = load_test_data('../input/raw8_2.nii.gz', )
+    test_data = load_train_data_folder('../input/norm1/', data_type=0, number_files=4)
+    test_data = np.reshape(test_data, [-1, 64, 64, 64])
     # print("Input Data...")
     # print("Shape: ", np.shape(test_data))
     # print("Max: ", np.max(test_data))

@@ -4,17 +4,20 @@ from __future__ import print_function
 
 import numpy as np
 import tensorflow as tf
-from vessel.model import cnn_model_fn, load_train_data
+from vessel.model import cnn_model_fn, load_train_data_folder
 
 
 def main(unused_args):
 
-    # Load train data
-    train_data = load_train_data('../input/raw8.nii.gz', type=0)
-    train_labels = load_train_data('../input/seg8.nii.gz', type=1)
+    train_data = load_train_data_folder('../input/norm1/', data_type=0, number_files=4)
+    train_data = np.reshape(train_data, [-1, 64, 64, 64])
+    train_labels = load_train_data_folder('../input/norm2/', data_type=1, number_files=4)
+    train_labels = np.reshape(train_labels, [-1, 64, 64, 64])
 
-    eval_data = load_train_data('../input/raw8_2.nii.gz', type=0)
-    eval_labels = load_train_data('../input/seg8_2.nii.gz', type=1)
+    eval_data = load_train_data_folder('../input/seg1/', data_type=0, number_files=4)
+    eval_data = np.reshape(eval_data, [-1, 64, 64, 64])
+    eval_labels = load_train_data_folder('../input/seg2/', data_type=1, number_files=4)
+    eval_labels = np.reshape(eval_labels, [-1, 64, 64, 64])
 
     print(np.shape(train_data))
     print(np.shape(train_labels))
@@ -40,7 +43,7 @@ def main(unused_args):
         shuffle=True)
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=5000,
+        steps=10000,
         hooks=[logging_hook])
 
     # Evaluate the model and print results

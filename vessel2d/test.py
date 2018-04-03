@@ -22,7 +22,7 @@ def main(unused_args):
 
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir="/home/joseph/Desktop/models/giles2d")
+        model_fn=cnn_model_fn, model_dir="/home/joseph/Projects/vascularnetworks/models/giles2d_deep")
 
     predict_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": test_data},
